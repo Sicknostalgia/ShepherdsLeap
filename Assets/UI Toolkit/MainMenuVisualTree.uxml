@@ -1,0 +1,8 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/MainMenuStyleSheet.uss?fileID=7433441132597879392&amp;guid=2413f8f753ec6b04db5376b4ff5b0468&amp;type=3#MainMenuStyleSheet" />
+    <ui:VisualElement name="Container" style="background-image: url(&quot;project://database/Assets/Image/zombievolveSplashArt2Official.png?fileID=2800000&amp;guid=000ab280bafe70b4889750def91862d5&amp;type=3#zombievolveSplashArt2Official&quot;); height: 1080px; width: 1920px;">
+        <ui:Label text="Main Menu" display-tooltip-when-elided="true" name="Header1" class="header" />
+        <ui:Button text="Start" name="StartBtn" class="button" />
+        <ui:Button text="Settings" display-tooltip-when-elided="true" name="Settings" class="button" />
+    </ui:VisualElement>
+</ui:UXML>
