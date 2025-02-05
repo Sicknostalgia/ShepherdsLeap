@@ -446,7 +446,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &293626083
 MonoBehaviour:
@@ -1849,7 +1849,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1687645759}
   - component: {fileID: 1687645758}
-  - component: {fileID: 1687645760}
   m_Layer: 0
   m_Name: FreeLook Camera
   m_TagString: Untagged
@@ -1979,23 +1978,6 @@ Transform:
   m_Father: {fileID: 630168253}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1687645760
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1687645757}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28815b39374ad1247828db53c9b933f3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  orientation: {fileID: 1815411590}
-  player: {fileID: 293626080}
-  playerObj: {fileID: 2042905709}
-  rb: {fileID: 1285133393}
-  rotationSpeed: 0
 --- !u!1 &1810498155
 GameObject:
   m_ObjectHideFlags: 0

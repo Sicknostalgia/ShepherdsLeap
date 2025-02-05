@@ -46,7 +46,7 @@ public class PlayerMvmnt : MonoBehaviour
     {
         moveDiretion = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
-        rb.AddForce(moveDiretion.normalized * moveSpeed, ForceMode.Force);
+        rb.AddForce(moveDiretion.normalized * moveSpeed * 10f, ForceMode.Force);
     }
     // Update is called once per frame
     void Update()
