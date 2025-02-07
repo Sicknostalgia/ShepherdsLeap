@@ -6,7 +6,6 @@ public class PlayerMvmnt : MonoBehaviour
 {
     [Header("Movement")]
     public float moveSpeed;
-    public Transform orientation;
     float horizontalInput;
     float verticalInput;
     [Header("Drag & speed control")]
@@ -15,6 +14,7 @@ public class PlayerMvmnt : MonoBehaviour
     public LayerMask ground;
     public bool isGrounded;
     Vector3 moveDiretion;
+    public Transform orientation;
 
     Rigidbody rb;
     // Start is called before the first frame update
@@ -36,6 +36,7 @@ public class PlayerMvmnt : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        rb.freezeRotation = true;
     }
     void MyInput()
     {
@@ -51,12 +52,11 @@ public class PlayerMvmnt : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * .5f + .5f, ground); //#2
+        isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * .5f + .2f, ground); //#2
 
         MyInput();
         if (isGrounded)
         {
-            
             rb.drag = grounddrag; //apply drag
         }
         else
