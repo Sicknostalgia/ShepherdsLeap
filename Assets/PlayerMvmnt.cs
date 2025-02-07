@@ -17,7 +17,17 @@ public class PlayerMvmnt : MonoBehaviour
     public Transform orientation;
 
     Rigidbody rb;
-    // Start is called before the first frame update
+    public MovementState state;
+    public enum MovementState
+    {
+        restricted,
+        walking,
+        sprinting,
+        wallrunning,
+        crouching,
+        sliding,
+        air
+    }
     void OnDrawGizmos()
     {
         // Calculate the ray distance
@@ -45,6 +55,7 @@ public class PlayerMvmnt : MonoBehaviour
     }
     void MovePlayer()
     {
+        state = MovementState.restricted;
         moveDiretion = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
         rb.AddForce(moveDiretion.normalized * moveSpeed * 10f, ForceMode.Acceleration);
@@ -52,7 +63,7 @@ public class PlayerMvmnt : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * .5f + .2f, ground); //#2
+        isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * .5f + .5f, ground); //#2
 
         MyInput();
         if (isGrounded)
@@ -64,6 +75,9 @@ public class PlayerMvmnt : MonoBehaviour
     }
     private void FixedUpdate()
     {
+       /* if(state != MovementState.restricted)
+        {*/
         MovePlayer();
+      //  }
     }
 }

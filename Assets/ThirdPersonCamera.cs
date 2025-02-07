@@ -10,6 +10,16 @@ public class ThirdPersonCamera : MonoBehaviour
     public Transform playerObj;
     public Rigidbody rb;
     public float rotationSpeed;
+
+
+    public Transform combatLookat;
+    public CameraStyle cameraStyle;
+    public enum CameraStyle
+    {
+        Basic,
+        Combat,
+        TopDown
+    }
     private void OnDrawGizmos()
     {
         // Orientation (Cyan)
@@ -60,7 +70,7 @@ public class ThirdPersonCamera : MonoBehaviour
         Vector3 moveCross = orientation.forward * verticalinput + orientation.right * horinzontalInput;
         if (inputDir != Vector3.zero)
         {
-            playerObj.forward = Vector3.Slerp(playerObj.forward, inputDir.normalized, Time.deltaTime * rotationSpeed);
+            playerObj.forward = Vector3.Slerp(playerObj.forward, moveCross.normalized, Time.deltaTime * rotationSpeed);
         }
     }
        // Draw an arrowhead at the end of the forward vector
