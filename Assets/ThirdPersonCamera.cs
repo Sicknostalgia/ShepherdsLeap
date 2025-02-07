@@ -13,6 +13,10 @@ public class ThirdPersonCamera : MonoBehaviour
 
 
     public Transform combatLookat;
+
+    public GameObject basicCamera;
+    public GameObject combatCamera;
+    public GameObject topdownCamera;
     public CameraStyle cameraStyle;
     public enum CameraStyle
     {
@@ -61,19 +65,36 @@ public class ThirdPersonCamera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Alpha1)) SwitchCameraStyle(CameraStyle.Basic);
+        if (Input.GetKeyDown(KeyCode.Alpha2)) SwitchCameraStyle(CameraStyle.Combat);
+        if (Input.GetKeyDown(KeyCode.Alpha3)) SwitchCameraStyle(CameraStyle.TopDown);
         Vector3 viewDir = player.position - new Vector3(transform.position.x, player.position.y, transform.position.z);//ignore y axis
         orientation.forward = viewDir.normalized;
-                                                                                                                       //rotate player object
-        float horinzontalInput = Input.GetAxis("Horizontal");
-        float verticalinput = Input.GetAxis("Vertical");
-        Vector3 inputDir = orientation.forward * verticalinput;
-        Vector3 moveCross = orientation.forward * verticalinput + orientation.right * horinzontalInput;
-        if (inputDir != Vector3.zero)
+
+        if (cameraStyle == CameraStyle.Basic)
         {
-            playerObj.forward = Vector3.Slerp(playerObj.forward, moveCross.normalized, Time.deltaTime * rotationSpeed);
+            //rotate player object
+            float horinzontalInput = Input.GetAxis("Horizontal");
+            float verticalinput = Input.GetAxis("Vertical");
+            Vector3 inputDir = orientation.forward * verticalinput;
+            Vector3 moveCross = orientation.forward * verticalinput + orientation.right * horinzontalInput;
+            if (inputDir != Vector3.zero)
+            {
+                playerObj.forward = Vector3.Slerp(playerObj.forward, moveCross.normalized, Time.deltaTime * rotationSpeed);
+            }
+        }
+        else if (cameraStyle == CameraStyle.Combat)
+        {
+            Vector3 dirToCombatLookAt = combatLookat.position - new Vector3(transform.position.x, player.position.y, transform.position.z);
+            orientation.forward = viewDir.normalized;
+            playerObj.forward = dirToCombatLookAt.normalized;
+        }
+        else if (cameraStyle == CameraStyle.TopDown)
+        {
+
         }
     }
-       // Draw an arrowhead at the end of the forward vector
+    // Draw an arrowhead at the end of the forward vector
     private void DrawArrowHead(Vector3 position, Vector3 direction, float length, float arrowSize)
     {
         Vector3 right = Quaternion.LookRotation(direction) * Quaternion.Euler(0, 160, 0) * Vector3.forward;
@@ -81,5 +102,19 @@ public class ThirdPersonCamera : MonoBehaviour
 
         Gizmos.DrawLine(position + direction * length, position + direction * length + right * arrowSize);
         Gizmos.DrawLine(position + direction * length, position + direction * length + left * arrowSize);
+    }
+
+
+    private void SwitchCameraStyle(CameraStyle newStyle)
+    {
+        basicCamera.SetActive(false);
+        combatCamera.SetActive(false);
+        topdownCamera.SetActive(false);
+
+        if (newStyle == CameraStyle.Basic) basicCamera.SetActive(true);
+        if (newStyle == CameraStyle.Combat) combatCamera.SetActive(true);
+        if (newStyle == CameraStyle.Combat) topdownCamera.SetActive(true);
+
+        cameraStyle = newStyle;
     }
 }
