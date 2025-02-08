@@ -113,7 +113,7 @@ public class ThirdPersonCamera : MonoBehaviour
 
         if (newStyle == CameraStyle.Basic) basicCamera.SetActive(true);
         if (newStyle == CameraStyle.Combat) combatCamera.SetActive(true);
-        if (newStyle == CameraStyle.Combat) topdownCamera.SetActive(true);
+        if (newStyle == CameraStyle.TopDown) topdownCamera.SetActive(true);
 
         cameraStyle = newStyle;
     }
