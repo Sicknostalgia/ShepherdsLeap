@@ -8,7 +8,19 @@ public class RepellTo : MonoBehaviour
     public float sheepSpeed;
     public float detectionRadius = 2f;
     public LayerMask detectionLayer;
-
+    public float rotSpeed;
+    private Rigidbody rb;
+    private void Start()
+    {
+        if(!TryGetComponent<Rigidbody>(out rb))
+        {
+            Debug.LogWarning("rigidbody not found on " + gameObject.name);
+        }
+        else
+        {
+            rb.freezeRotation = true;
+        }
+    }
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
@@ -30,10 +42,15 @@ public class RepellTo : MonoBehaviour
             {
                 Debug.Log(hitColliders[0].name);
                 Vector3 dir = (transform.position - player.position).normalized; // points away from the player 
-                transform.position += dir * sheepSpeed * Time.deltaTime;
+                /*   transform.position += dir * sheepSpeed * Time.deltaTime;*/
 
+                rb.velocity = dir * sheepSpeed;
                 //rotate to face away from the player
-                transform.rotation = Quaternion.LookRotation(dir);
+                //replace Slerp
+                //transform.rotation = Quaternion.LookRotation(dir);
+                transform.forward = Vector3.Slerp(transform.forward, dir.normalized, Time.deltaTime * rotSpeed);
+              /*  Quaternion targRot = Quaternion.LookRotation(dir);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targRot, Time.deltaTime * rotSpeed);*/
             }
             else
             {

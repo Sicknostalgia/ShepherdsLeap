@@ -179,7 +179,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 29861875}
   m_LocalRotation: {x: 0.45119002, y: 0, z: 0, w: 0.8924279}
-  m_LocalPosition: {x: 0, y: -0.0000019073486, z: 0}
+  m_LocalPosition: {x: 0, y: -0.0000019073486, z: 0.0000009536743}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -630,7 +630,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 293626079}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.09, y: 6.79, z: 10.77}
+  m_LocalPosition: {x: 14.46, y: 7.95, z: 10.77}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -810,7 +810,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 296975895}
   m_LocalRotation: {x: 0.48134443, y: 0, z: 0, w: 0.87653154}
-  m_LocalPosition: {x: 11.09, y: 13.79, z: 6.7700005}
+  m_LocalPosition: {x: 14.46, y: 14.95, z: 6.7700005}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1660,7 +1660,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 746305128}
   m_LocalRotation: {x: 0.4813444, y: 0, z: 0, w: 0.87653154}
-  m_LocalPosition: {x: 0, y: -0.0000019073486, z: 0}
+  m_LocalPosition: {x: 0, y: -0.0000019073486, z: 0.0000009536743}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4055,7 +4055,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1752175952}
   m_LocalRotation: {x: 0.46118376, y: 0, z: 0, w: 0.88730466}
-  m_LocalPosition: {x: 0, y: -0.0000019073486, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4134,7 +4134,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1779290379}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 7.404603, y: 10.915434, z: 8.03805}
+  m_LocalPosition: {x: 10.774603, y: 12.075434, z: 8.03805}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4819,11 +4819,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 293626080}
-  sheepSpeed: 3
-  detectionRadius: 3
+  sheepSpeed: 5
+  detectionRadius: 5.24
   detectionLayer:
     serializedVersion: 2
     m_Bits: 128
+  rotSpeed: 3
 --- !u!136 &1993946833
 CapsuleCollider:
   m_ObjectHideFlags: 0
