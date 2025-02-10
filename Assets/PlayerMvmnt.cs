@@ -5,7 +5,10 @@ using UnityEngine;
 public class PlayerMvmnt : MonoBehaviour
 {
     [Header("Movement")]
-    public float moveSpeed;
+    private float moveSpeed;
+    public float walkSpeed;
+    public float sprintSpeed;
+
     float horizontalInput;
     float verticalInput;
 
@@ -13,9 +16,12 @@ public class PlayerMvmnt : MonoBehaviour
     public float jumpCD;
     public float airMultiplier;
     bool isReady2jump;
-
+    [Header("Slope Handling")]
+    public float maxSlopeAngle;
+    private RaycastHit slopeRayHit;
     [Header("KeyBinds")]
     public KeyCode jumpKey = KeyCode.Space;
+    public KeyCode sprintKey = KeyCode.LeftShift;
 
     [Header("Drag & speed control")]
     public float playerHeight;
@@ -73,6 +79,12 @@ public class PlayerMvmnt : MonoBehaviour
     {
         state = MovementState.restricted;
         moveDiretion = orientation.forward * verticalInput + orientation.right * horizontalInput;
+
+        //on slope
+        if (OnSlope())
+        {
+            rb.AddForce(GetSlope() * moveSpeed * 20f, ForceMode.Force);
+        }
         if (isGrounded)
         {
             rb.AddForce(moveDiretion.normalized * moveSpeed * 10f, ForceMode.Force);
@@ -80,18 +92,12 @@ public class PlayerMvmnt : MonoBehaviour
         else if (!isGrounded)
         {
             rb.AddForce(moveDiretion.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
-        }
-    }
-    void SpeedControl()
-    {
-        Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
-        if (flatVel.magnitude > moveSpeed)
-        {
-            Vector3 limitVel = flatVel.normalized * moveSpeed;
-            rb.velocity = new Vector3(limitVel.x, rb.velocity.y, limitVel.z);
+            if(rb.velocity.y > 0)
+            {
+                rb.AddForce(Vector3.down * 80f, ForceMode.Force); // add force downwards the slope to prevent bumpy effect
+            }
         }
-
     }
     // Update is called once per frame
     void Update()
@@ -100,12 +106,55 @@ public class PlayerMvmnt : MonoBehaviour
 
         MyInput();
         SpeedControl();
+        StateHandler();
         if (isGrounded)
         {
             rb.drag = grounddrag; //apply drag
         }
         else
             rb.drag = 0;
+    }
+    void SpeedControl()
+    {
+        //limiting speed on slope
+        if (OnSlope())
+        {
+            if (rb.velocity.magnitude > moveSpeed)
+            {
+                rb.velocity = rb.velocity.normalized * moveSpeed;
+            }
+        }
+        //limiting speed on ground and air
+        else
+        {
+            Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+
+            if (flatVel.magnitude > moveSpeed)
+            {
+                Vector3 limitVel = flatVel.normalized * moveSpeed;
+                rb.velocity = new Vector3(limitVel.x, rb.velocity.y, limitVel.z);
+            }
+        }
+        
+
+    }
+    void StateHandler()
+    {
+        if(isGrounded && Input.GetKey(sprintKey))
+        {
+            state = MovementState.sprinting;
+            moveSpeed = sprintSpeed;
+        }
+        else if (isGrounded)
+        {
+            state = MovementState.walking;
+            moveSpeed = walkSpeed;
+        }
+        else
+        {
+            state = MovementState.air;
+
+        }
     }
     private void FixedUpdate()
     {
@@ -123,5 +172,18 @@ public class PlayerMvmnt : MonoBehaviour
     private void ResetJump()
     {
         isReady2jump = true;
+    }
+    private bool OnSlope()
+    {
+        if (Physics.Raycast(transform.position, Vector3.down, out slopeRayHit, playerHeight * .5f + .3f)){
+            float angle = Vector3.Angle(Vector3.up, slopeRayHit.normal);
+            return angle< maxSlopeAngle && angle != 0; //return value if angle is less than the maxSlopeAngle
+        }
+        return false;
+    }
+
+    private Vector3 GetSlope()
+    {
+        return Vector3.ProjectOnPlane(moveDiretion, slopeRayHit.normal.normalized); //since its a  direction you should make a habit to always normalized it.
     }
 }

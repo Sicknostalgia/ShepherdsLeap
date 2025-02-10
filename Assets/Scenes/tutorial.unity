@@ -667,11 +667,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bfb220975686b84fb0c92b8126ac348, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 7
+  walkSpeed: 7
+  sprintSpeed: 10
   jumpForce: 4
   jumpCD: 0.25
   airMultiplier: 0.4
+  maxSlopeAngle: 40
   jumpKey: 32
+  sprintKey: 304
   playerHeight: 1.788155
   grounddrag: 5
   ground:
@@ -2825,11 +2828,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bfb220975686b84fb0c92b8126ac348, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 7
+  walkSpeed: 0
+  sprintSpeed: 0
   jumpForce: 0
   jumpCD: 0
   airMultiplier: 0
+  maxSlopeAngle: 0
   jumpKey: 32
+  sprintKey: 304
   playerHeight: 2
   grounddrag: 5
   ground:

@@ -40,7 +40,7 @@ public class RepellTo : MonoBehaviour
             Collider[] hitColliders = Physics.OverlapSphere(transform.position, detectionRadius, detectionLayer);
             if (hitColliders != null) //player not null as target
             {
-                Debug.Log(hitColliders[0].name);
+                //Debug.Log(hitColliders[0].name);
                 Vector3 dir = (transform.position - player.position).normalized; // points away from the player 
                 /*   transform.position += dir * sheepSpeed * Time.deltaTime;*/
 
