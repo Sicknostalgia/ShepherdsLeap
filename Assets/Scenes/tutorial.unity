@@ -668,6 +668,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 7
+  jumpForce: 4
+  jumpCD: 0.25
+  airMultiplier: 0.4
+  jumpKey: 32
   playerHeight: 1.788155
   grounddrag: 5
   ground:
@@ -2822,6 +2826,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 7
+  jumpForce: 0
+  jumpCD: 0
+  airMultiplier: 0
+  jumpKey: 32
   playerHeight: 2
   grounddrag: 5
   ground:
