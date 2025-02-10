@@ -9,6 +9,15 @@ public class PlayerMvmnt : MonoBehaviour
     public Transform orientation;
     float horizontalInput;
     float verticalInput;
+
+    public float jumpForce;
+    public float jumpCD;
+    public float airMultiplier;
+    bool isReady2jump;
+
+    [Header("KeyBinds")]
+    public KeyCode jumpKey = KeyCode.Space;
+
     [Header("Drag & speed control")]
     public float playerHeight;
     public float grounddrag;
@@ -41,12 +50,36 @@ public class PlayerMvmnt : MonoBehaviour
     {
         horizontalInput = Input.GetAxis("Horizontal");
         verticalInput = Input.GetAxis("Vertical");
+
+        if (Input.GetKey(jumpKey) && isGrounded)
+        {
+            isReady2jump = false;
+            Jump();
+            Invoke(nameof(ResetJump), jumpCD); //able to continously jump if jumpkey is hold
+        }
     }
     void MovePlayer()
     {
         moveDiretion = orientation.forward * verticalInput + orientation.right * horizontalInput;
+        if (isGrounded)
+        {
+            rb.AddForce(moveDiretion.normalized * moveSpeed * 10f, ForceMode.Force);
+        }
+        else if (!isGrounded)
+        {
+            rb.AddForce(moveDiretion.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
+        }
+    }
+    void SpeedControl()
+    {
+        Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
-        rb.AddForce(moveDiretion.normalized * moveSpeed * 10f, ForceMode.Acceleration);
+        if (flatVel.magnitude > moveSpeed)
+        {
+            Vector3 limitVel = flatVel.normalized * moveSpeed;
+            rb.velocity = new Vector3(limitVel.x, rb.velocity.y, limitVel.z);
+        }
+
     }
     // Update is called once per frame
     void Update()
@@ -54,6 +87,7 @@ public class PlayerMvmnt : MonoBehaviour
         isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * .5f + .5f, ground); //#2
 
         MyInput();
+        SpeedControl();
         if (isGrounded)
         {
             
@@ -64,6 +98,23 @@ public class PlayerMvmnt : MonoBehaviour
     }
     private void FixedUpdate()
     {
+<<<<<<< Updated upstream
         MovePlayer();
+=======
+        /* if(state != MovementState.restricted)
+         {*/
+        MovePlayer();
+        //  }
+    }
+    void Jump()
+    {
+        rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z); //make sure to reset Y velocity.
+
+        rb.AddForce(transform.up * jumpForce, ForceMode.Impulse); //applying the force once
+    }
+    private void ResetJump()
+    {
+        isReady2jump = true;
+>>>>>>> Stashed changes
     }
 }

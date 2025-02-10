@@ -461,8 +461,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 7
+<<<<<<< Updated upstream
   orientation: {fileID: 1815411590}
   playerHeight: 1.827728
+=======
+  jumpForce: 3
+  jumpCD: 0.25
+  airMultiplier: 0.1
+  jumpKey: 32
+  playerHeight: 1.788155
+>>>>>>> Stashed changes
   grounddrag: 5
   ground:
     serializedVersion: 2
@@ -1739,7 +1747,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 7
+<<<<<<< Updated upstream
   orientation: {fileID: 2847441}
+=======
+  jumpForce: 0
+  jumpCD: 0
+  airMultiplier: 0
+  jumpKey: 32
+>>>>>>> Stashed changes
   playerHeight: 2
   grounddrag: 5
   ground:
