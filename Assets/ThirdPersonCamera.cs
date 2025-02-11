@@ -10,7 +10,7 @@ public class ThirdPersonCamera : MonoBehaviour
     public Transform playerObj;
     public Rigidbody rb;
     public float rotationSpeed;
-
+    public Vector3 moveCross;
 
     public Transform combatLookat;
 
@@ -77,7 +77,7 @@ public class ThirdPersonCamera : MonoBehaviour
             float horinzontalInput = Input.GetAxis("Horizontal");
             float verticalinput = Input.GetAxis("Vertical");
             Vector3 inputDir = orientation.forward * verticalinput;
-            Vector3 moveCross = orientation.forward * verticalinput + orientation.right * horinzontalInput;
+         moveCross = orientation.forward * verticalinput + orientation.right * horinzontalInput;
             if (inputDir != Vector3.zero)
             {
                 playerObj.forward = Vector3.Slerp(playerObj.forward, moveCross.normalized, Time.deltaTime * rotationSpeed);

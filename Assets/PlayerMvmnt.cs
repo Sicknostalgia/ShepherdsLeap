@@ -9,8 +9,8 @@ public class PlayerMvmnt : MonoBehaviour
     public float walkSpeed;
     public float sprintSpeed;
 
-    float horizontalInput;
-    float verticalInput;
+    public float horizontalInput;
+    public float verticalInput;
 
     public float jumpForce;
     public float jumpCD;
