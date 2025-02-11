@@ -20,7 +20,7 @@ public class PlayerMvmnt : MonoBehaviour
     public float maxSlopeAngle;
     private RaycastHit slopeRayHit;
     [Header("KeyBinds")]
-    public KeyCode jumpKey = KeyCode.Space;
+  //  public KeyCode jumpKey = KeyCode.Space;
     public KeyCode sprintKey = KeyCode.LeftShift;
 
     [Header("Drag & speed control")]
@@ -68,7 +68,7 @@ public class PlayerMvmnt : MonoBehaviour
         horizontalInput = Input.GetAxis("Horizontal");
         verticalInput = Input.GetAxis("Vertical");
 
-        if (Input.GetKey(jumpKey) && isGrounded)
+        if (/*Input.GetKey(jumpKey) &&*/ isGrounded)
         {
             isReady2jump = false;
             Jump();
