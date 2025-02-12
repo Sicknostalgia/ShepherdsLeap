@@ -8,12 +8,13 @@ public class PoleHandleIt : MonoBehaviour
     private Vector3 hitNormal;
     private bool hitDetected = false;
     public LayerMask groundLayer;
+    public GameObject vfx;
     /*   void Update()
        {
            DetectFace();
        }*/
 
-    private void OnCollisionStay(Collision collision)
+    private void OnCollisionEnter(Collision collision)
     {
         ContactPoint contact = collision.contacts[0]; // Get the first contact point
         hitPoint = contact.point;
@@ -22,6 +23,7 @@ public class PoleHandleIt : MonoBehaviour
 
         string face = GetColliderFace(hitNormal, transform);
         //Debug.Log("Normal: " + hitNormal);
+        ObjctPlTrnsfrm.SpawnToParent(vfx, transform);
         Debug.Log("Collided with: " + collision.gameObject.name + " on face: " + face);
         //get the surface normal of the collider pole
         //if(pole face touch the terrain then destroy the pole

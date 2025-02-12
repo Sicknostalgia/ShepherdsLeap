@@ -29,7 +29,7 @@ public class Hook : MonoBehaviour
             FireHook();
         }
     }
-
+    
     void FireHook()
     {
         RaycastHit hit;
