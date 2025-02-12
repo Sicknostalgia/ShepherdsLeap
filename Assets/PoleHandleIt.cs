@@ -21,9 +21,9 @@ public class PoleHandleIt : MonoBehaviour
         hitNormal = contact.normal;
         hitDetected = true;
 
-        string face = GetColliderFace(hitNormal, transform);
+        string face = GetColliderFace(hitNormal, transform);   
         //Debug.Log("Normal: " + hitNormal);
-        ObjctPlTrnsfrm.SpawnToParent(vfx, transform);
+        ObjctPlTrnsfrm.SpawnObject(vfx, hitNormal,Quaternion.identity);
         Debug.Log("Collided with: " + collision.gameObject.name + " on face: " + face);
         //get the surface normal of the collider pole
         //if(pole face touch the terrain then destroy the pole
