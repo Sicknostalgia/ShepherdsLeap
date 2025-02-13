@@ -21,9 +21,15 @@ public class PoleHandleIt : MonoBehaviour
         hitNormal = contact.normal;
         hitDetected = true;
 
-        string face = GetColliderFace(hitNormal, transform);   
+
+        string nearestFace = GetNearestFace(hitPoint, transform);
+        Vector3 faceDirection = GetFaceDirection(nearestFace); // Convert face name to direction
+        Vector3 centerOfFace = transform.position + (faceDirection * transform.lossyScale / 2f); 
+        string face = GetColliderFace(hitNormal, transform);
+
         //Debug.Log("Normal: " + hitNormal);
-        ObjctPlTrnsfrm.SpawnObject(vfx, hitNormal,Quaternion.identity);
+        CameraShakeEvent.TriggerShake(1, .25f);
+        ObjctPlTrnsfrm.SpawnObject(vfx, centerOfFace,Quaternion.identity);
         Debug.Log("Collided with: " + collision.gameObject.name + " on face: " + face);
         //get the surface normal of the collider pole
         //if(pole face touch the terrain then destroy the pole
@@ -60,7 +66,43 @@ public class PoleHandleIt : MonoBehaviour
             Debug.Log("Hit face: " + face);
         }
     }
+    Vector3 GetFaceDirection(string face)
+    {
+        switch (face)
+        {
+            case "Right (+X)": return transform.right;
+            case "Left (-X)": return -transform.right;
+            case "Top (+Y)": return transform.up;
+            case "Bottom (-Y)": return -transform.up;
+            case "Front (+Z)": return transform.forward;
+            case "Back (-Z)": return -transform.forward;
+            default: return Vector3.zero; // Default case if something goes wrong
+        }
+    }
+    string GetNearestFace(Vector3 hitPoint, Transform cubeTransform)
+    {
+        // Convert hit point to local space
+        Vector3 localPoint = cubeTransform.InverseTransformPoint(hitPoint);
 
+        // Get the absolute distances to the center
+        float absX = Mathf.Abs(localPoint.x);
+        float absY = Mathf.Abs(localPoint.y);
+        float absZ = Mathf.Abs(localPoint.z);
+
+        // Compare which axis is dominant
+        if (absX > absY && absX > absZ) // X is dominant
+        {
+            return (localPoint.x > 0) ? "Right (+X)" : "Left (-X)";
+        }
+        else if (absY > absX && absY > absZ) // Y is dominant
+        {
+            return (localPoint.y > 0) ? "Top (+Y)" : "Bottom (-Y)";
+        }
+        else // Z is dominant
+        {
+            return (localPoint.z > 0) ? "Front (+Z)" : "Back (-Z)";
+        }
+    }
     string GetColliderFace(Vector3 normal,Transform cubeTrans)
     {
         Vector3 localNormal = cubeTrans.InverseTransformDirection(normal);//Convert to Local Space. detect faces relative to the cube's orientation
