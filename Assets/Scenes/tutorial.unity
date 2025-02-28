@@ -226,6 +226,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dice_d6
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 31fc8cbe82b70ba4ca86014d7df73c1d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31fc8cbe82b70ba4ca86014d7df73c1d, type: 3}
 --- !u!1 &29861875
@@ -2551,7 +2556,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!54 &737810345
 Rigidbody:
   m_ObjectHideFlags: 0

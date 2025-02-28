@@ -24,7 +24,7 @@ public class PoleHandleIt : MonoBehaviour
 
         string nearestFace = GetNearestFace(hitPoint, transform);
         Vector3 faceDirection = GetFaceDirection(nearestFace); // Convert face name to direction
-        Vector3 centerOfFace = transform.position + (faceDirection * transform.lossyScale / 2f); 
+        Vector3 centerOfFace = transform.position + (faceDirection * transform.lossyScale.magnitude / 2f); 
         string face = GetColliderFace(hitNormal, transform);
 
         //Debug.Log("Normal: " + hitNormal);
